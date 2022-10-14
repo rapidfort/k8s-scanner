@@ -1,8 +1,14 @@
 <a href="https://rapidfort.com?utm_source=github&utm_medium=k8s_scanner_rf_link&utm_campaign=oct_01_sprint&utm_term=k8s_scanner_main_landing&utm_content=main_landing_logo">
-<img src="/contrib/github_logo.png" alt="RapidFort" width="200" />
+<img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/github_logo.png" alt="RapidFort" width="200" />
 </a>
 
 # k8s-scanner
+
+<a href="https://hub.docker.com/r/rapidfort/curl"> <img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/view_on_dockerhub.svg" alt="View on Dockerhub" height="50" /> </a>
+
+<a href="https://github.com/rapidfort/k8s-scanner">
+<img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/view_on_github_button.svg" alt="View on GitHub" height="50" />
+</a>
 
 <b> k8s-scanner is RapidFort's Kubernetes SCA scanner</b>
 
@@ -81,7 +87,7 @@ k8s-scanner currently needs to access host machine docker socket running at `/va
 ## Need support
 
 <a href="https://join.slack.com/t/rapidfortcommunity/shared_invite/zt-1g3wy28lv-DaeGexTQ5IjfpbmYW7Rm_Q">
-<img src="/contrib/github_banner.png" alt="RapidFort Community Slack" width="600" />
+<img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/github_banner.png" alt="RapidFort Community Slack" width="600" />
 </a>
 
 ## 🌟 Star this project
