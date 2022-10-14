@@ -55,15 +55,18 @@ jobs:
             --set secret.rf_access_id=$RF_ACCESS_ID \
             --set secret.rf_secret_access_key=$RF_SECRET_ACCESS_KEY \
             --set image.repository=local/k8s-scanner \
-            --set image.tag=latest-rfstub
+            --set image.tag=latest-rfstub \
+            --set capAddSysPtrace.enabled=true
       - name: Run cron job
         run: kubectl create job --from=cronjob/rel1-k8s-scanner xyz
       - name: Sleep 1 min
         run: sleep 60
+      - name: Dump logs
+        run: kubectl logs -l "app.kubernetes.io/name=k8s-scanner"
       - name: Delete helm chart
         run: helm delete rel1
       - name: Created hardened image
-        run: rfstub local/k8s-scanner:latest-rfhardened
+        run: rfharden local/k8s-scanner:latest-rfstub
       - name: Tag image
         run: docker tag local/k8s-scanner:latest-rfhardened rapidfort/k8s-scanner:latest
       - name: Docker login
