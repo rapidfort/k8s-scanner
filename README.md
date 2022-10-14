@@ -1,3 +1,7 @@
+<a href="https://rapidfort.com?utm_source=github&utm_medium=k8s_scanner_rf_link&utm_campaign=oct_01_sprint&utm_term=k8s_scanner_main_landing&utm_content=main_landing_logo">
+<img src="/contrib/github_logo.png" alt="RapidFort" width="200" />
+</a>
+
 # k8s-scanner
 
 <b> k8s-scanner is RapidFort's Kubernetes SCA scanner</b>
@@ -72,3 +76,30 @@ k8s-scanner currently needs to access host machine docker socket running at `/va
             hostPath:
               path: /tmp
 ```
+
+
+## Need support
+
+<a href="https://join.slack.com/t/rapidfortcommunity/shared_invite/zt-1g3wy28lv-DaeGexTQ5IjfpbmYW7Rm_Q">
+<img src="/contrib/github_banner.png" alt="RapidFort Community Slack" width="600" />
+</a>
+
+## 🌟 Star this project
+
+[![](https://user-images.githubusercontent.com/48997634/174794647-0c851917-e5c9-4fb9-bf88-b61d89dc2f4f.gif)](https://github.com/rapidfort/k8s-scanner/stargazers)
+
+### [⏫⭐️ Scroll to the star button](#start-of-content)
+
+If you believe this project has potential, feel free to **star this repo** just like many [amazing people](https://github.com/rapidfort/k8s-scanner/stargazers)
+have.
+
+## Additional Resources
+
+[![RapidFort](https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/github_logo_footer.png)][rf-link-main-landing-footer-logo]
+
+
+Learn more about container optimization at [RapidFort.com][rf-link-additonal-resource].
+
+[rf-link-main-landing-footer-logo]: https://rapidfort.com?utm_source=github&utm_medium=k8s_scanner_rf_link&utm_campaign=oct_01_sprint&utm_term=k8s_scanner_main_landing&utm_content=main_landing_footer_logo
+
+[rf-link-additonal-resource]: https://rapidfort.com?utm_source=github&utm_medium=k8s_scanner_rf_link&utm_campaign=oct_01_sprint&utm_term=k8s_scanner_main_landing&utm_content=additonal_resource
