@@ -51,7 +51,7 @@ jobs:
           RF_SECRET_ACCESS_KEY: ${{ secrets.RF_SECRET_ACCESS_KEY }}
         run: |
           helm repo add rapidfort https://rapidfort.github.io/helm
-          helm upgrade --install rel1 k8s-scanner \
+          helm upgrade --install rel1 rapidfort/k8s-scanner \
             --set secret.rf_access_id=$RF_ACCESS_ID \
             --set secret.rf_secret_access_key=$RF_SECRET_ACCESS_KEY \
             --set image.repository=local/k8s-scanner \
