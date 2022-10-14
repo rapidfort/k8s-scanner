@@ -1,4 +1,4 @@
-FROM python:3.10.8-slim-bullseye
+FROM python:3.10.8-bullseye
 
 COPY ./app/ /opt/rapidfort/k8s_scanner
 COPY ./scripts/ /opt/rapidfort/k8s_scanner
