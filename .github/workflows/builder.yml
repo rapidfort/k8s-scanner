@@ -29,7 +29,7 @@ jobs:
             --username AWS \
             --password-stdin 274057717848.dkr.ecr.us-east-1.amazonaws.com
       - name: Build container
-        run: docker build . -t local/k8s-scanner:latest
+        run: docker build . -t rapidfort/k8s-scanner:latest
       - name: install the RapidFort CLI tools
         run:   curl  https://frontrow.rapidfort.com/cli/ | bash
       - name: authenticate
@@ -37,8 +37,17 @@ jobs:
           RF_ACCESS_ID: ${{ secrets.RF_ACCESS_ID }}
           RF_SECRET_ACCESS_KEY: ${{ secrets.RF_SECRET_ACCESS_KEY }}
         run: rflogin
+      - name: Push stub
+        run:
       - name: run rfstub to generate the stub
-        run: rfstub local/k8s-scanner:latest
+        run: rfstub rapidfort/k8s-scanner:latest
+      - name: Docker login
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        run: docker login -u "${DOCKERHUB_USERNAME}" -p "${DOCKERHUB_PASSWORD}"
+      - name: Push stub
+        run: docker push rapidfort/k8s-scanner:latest-rfstub
       - name: Start minikube
         with:
           memory: 4g
@@ -54,13 +63,15 @@ jobs:
           helm upgrade --install rel1 rapidfort/k8s-scanner \
             --set secret.rf_access_id=$RF_ACCESS_ID \
             --set secret.rf_secret_access_key=$RF_SECRET_ACCESS_KEY \
-            --set image.repository=local/k8s-scanner \
+            --set image.repository=rapidfort/k8s-scanner \
             --set image.tag=latest-rfstub \
             --set capAddSysPtrace.enabled=true
       - name: Run cron job
         run: kubectl create job --from=cronjob/rel1-k8s-scanner xyz
       - name: Sleep 1 min
         run: sleep 60
+      - name: Check k8s cluster !
+        run: kubectl get pods -A
       - name: Dump logs
         run: kubectl logs -l "app.kubernetes.io/name=k8s-scanner"
       - name: Delete helm chart
@@ -69,10 +80,5 @@ jobs:
         run: rfharden local/k8s-scanner:latest-rfstub
       - name: Tag image
         run: docker tag local/k8s-scanner:latest-rfhardened rapidfort/k8s-scanner:latest
-      - name: Docker login
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: docker login -u "${DOCKERHUB_USERNAME}" -p "${DOCKERHUB_PASSWORD}"
       - name: Push latest tag
         run: docker push rapidfort/k8s-scanner:latest
