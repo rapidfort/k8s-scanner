@@ -10,6 +10,9 @@ on:
 
 permissions: read-all
 
+env:
+  TAG: "$(git rev-parse --short HEAD)"
+
 jobs:
   build_harden:
     runs-on: ubuntu-latest
@@ -29,7 +32,7 @@ jobs:
             --username AWS \
             --password-stdin 274057717848.dkr.ecr.us-east-1.amazonaws.com
       - name: Build container
-        run: docker build . -t rapidfort/k8s-scanner:latest
+        run: docker build . -t rapidfort/k8s-scanner:"$TAG"
       - name: install the RapidFort CLI tools
         run: curl  https://frontrow.rapidfort.com/cli/ | bash
       - name: authenticate
@@ -38,14 +41,14 @@ jobs:
           RF_SECRET_ACCESS_KEY: ${{ secrets.RF_SECRET_ACCESS_KEY }}
         run: rflogin
       - name: run rfstub to generate the stub
-        run: rfstub rapidfort/k8s-scanner:latest
+        run: rfstub rapidfort/k8s-scanner:"$TAG"
       - name: Docker login
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: docker login -u "${DOCKERHUB_USERNAME}" -p "${DOCKERHUB_PASSWORD}"
       - name: Push stub
-        run: docker push rapidfort/k8s-scanner:latest-rfstub
+        run: docker push rapidfort/k8s-scanner:"$TAG"-rfstub
       - name: Start minikube
         with:
           memory: 4g
@@ -62,7 +65,7 @@ jobs:
             --set secret.rf_access_id=$RF_ACCESS_ID \
             --set secret.rf_secret_access_key=$RF_SECRET_ACCESS_KEY \
             --set image.repository=rapidfort/k8s-scanner \
-            --set image.tag=latest-rfstub \
+            --set image.tag="$TAG"-rfstub \
             --set capAddSysPtrace.enabled=true
       - name: Run cron job
         run: kubectl create job --from=cronjob/rel1-k8s-scanner xyz
@@ -75,8 +78,12 @@ jobs:
       - name: Delete helm chart
         run: helm delete rel1
       - name: Created hardened image
-        run: rfharden rapidfort/k8s-scanner:latest-rfstub
+        run: rfharden rapidfort/k8s-scanner:"$TAG"-rfstub
       - name: Tag image
-        run: docker tag rapidfort/k8s-scanner:latest-rfhardened rapidfort/k8s-scanner:latest
-      - name: Push latest tag
+        run: docker tag rapidfort/k8s-scanner:"$TAG"-rfhardened rapidfort/k8s-scanner:"$TAG"
+      - name: Push tag
+        run: docker push rapidfort/k8s-scanner:"$TAG"
+      - name: Create latest tag
+        run: docker tag rapidfort/k8s-scanner:"$TAG"-rfhardened rapidfort/k8s-scanner:latest
+      - name: Push tag
         run: docker push rapidfort/k8s-scanner:latest
