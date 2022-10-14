@@ -18,19 +18,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Start minikube
-        with:
-          memory: 4g
-        uses: medyagh/setup-minikube@master
-      - name: Check k8s cluster !
-        run: kubectl get pods -A
       - name: AWS Docker Login
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
         run: |
-          aws configure
           aws sts get-caller-identity
           aws ecr get-login-password | docker login \
             --username AWS \
@@ -46,6 +39,12 @@ jobs:
         run: rflogin
       - name: run rfstub to generate the stub
         run: rfstub local/k8s-scanner:latest
+      - name: Start minikube
+        with:
+          memory: 4g
+        uses: medyagh/setup-minikube@master
+      - name: Check k8s cluster !
+        run: kubectl get pods -A
       - name: Install helm chart with local image
         env:
           RF_ACCESS_ID: ${{ secrets.RF_ACCESS_ID }}
