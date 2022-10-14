@@ -4,10 +4,9 @@
 
 # k8s-scanner
 
-<a href="https://hub.docker.com/r/rapidfort/curl"> <img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/view_on_dockerhub.svg" alt="View on Dockerhub" height="50" /> </a>
-
+<a href="https://hub.docker.com/r/rapidfort/k8s-scanner"> <img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/view_on_dockerhub.svg" alt="View on Dockerhub" height="25" /> </a>
 <a href="https://github.com/rapidfort/k8s-scanner">
-<img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/view_on_github_button.svg" alt="View on GitHub" height="50" />
+<img src="https://raw.githubusercontent.com/rapidfort/k8s-scanner/main/contrib/view_on_github_button.svg" alt="View on GitHub" height="25" />
 </a>
 
 <b> k8s-scanner is RapidFort's Kubernetes SCA scanner</b>
