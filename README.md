@@ -73,13 +73,13 @@ k8s-scanner needs to enumerate list of all pods running in kubernetes cluster an
 k8s-scanner currently needs to access host machine docker socket running at `/var/run` to access Docker images. It also needs access to `/tmp` volume for accessing exported docker images.
 
 ```
-          volumes:
-          - name: docker-sock
-            hostPath:
-              path: /var/run
-          - name: docker-tmp
-            hostPath:
-              path: /tmp
+volumes:
+- name: docker-sock
+  hostPath:
+    path: /var/run
+- name: docker-tmp
+  hostPath:
+    path: /tmp
 ```
 
 
