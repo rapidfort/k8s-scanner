@@ -1,4 +1,4 @@
-FROM 274057717848.dkr.ecr.us-east-1.amazonaws.com/rfbase:latest
+FROM python:3.10.8-bullseye
 
 COPY ./app/ /opt/rapidfort/k8s_scanner
 COPY ./scripts/ /opt/rapidfort/k8s_scanner
