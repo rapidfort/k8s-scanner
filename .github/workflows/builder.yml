@@ -66,8 +66,8 @@ jobs:
             --set capAddSysPtrace.enabled=true
       - name: Run cron job
         run: kubectl create job --from=cronjob/rel1-k8s-scanner xyz
-      - name: Sleep 1 min
-        run: sleep 60
+      - name: Sleep 5 min
+        run: sleep 300
       - name: Check k8s cluster !
         run: kubectl get pods -A
       - name: Dump logs
