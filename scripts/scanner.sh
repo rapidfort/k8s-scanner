@@ -8,7 +8,7 @@ set -e
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 || exit ; pwd -P )"
 
 # install RF tools
-curl  https://"$RF_ENDPOINT"/cli/ | bash
+curl -k "$RF_ENDPOINT"/cli/ | bash
 
 # authenticate with RapidFort platform
 rflogin
