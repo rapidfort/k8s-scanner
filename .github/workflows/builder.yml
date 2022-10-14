@@ -75,8 +75,8 @@ jobs:
       - name: Delete helm chart
         run: helm delete rel1
       - name: Created hardened image
-        run: rfharden local/k8s-scanner:latest-rfstub
+        run: rfharden rapidfort/k8s-scanner:latest-rfstub
       - name: Tag image
-        run: docker tag local/k8s-scanner:latest-rfhardened rapidfort/k8s-scanner:latest
+        run: docker tag rapidfort/k8s-scanner:latest-rfhardened rapidfort/k8s-scanner:latest
       - name: Push latest tag
         run: docker push rapidfort/k8s-scanner:latest
