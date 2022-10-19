@@ -65,9 +65,10 @@ jobs:
             --set image.tag="$GITHUB_SHA"-rfstub \
             --set capAddSysPtrace.enabled=true
       - name: Run cron job
-        run: kubectl create job --from=cronjob/rel1-k8s-scanner xyz
-      - name: Sleep 5 min
-        run: sleep 300
+        run: kubectl create job --from=cronjob/rel1-k8s-scanner test-scan-job
+      - name: Wait for job to complete
+        continue-on-error: true
+        run: kubectl wait --for=condition=complete job.batch/test-scan-job --timeout=30m
       - name: Check k8s cluster !
         run: kubectl get pods -A
       - name: Dump logs
